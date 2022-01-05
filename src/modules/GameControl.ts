@@ -13,7 +13,7 @@ class GameControl {
   alive: boolean = true
   constructor() {
     this.food = new Food()
-    this.scorePanel = new ScorePanel(10,2)
+    this.scorePanel = new ScorePanel(5, 2)
     this.snake = new Snake()
     this.init()
   }
@@ -24,13 +24,13 @@ class GameControl {
   // 按下键盘控制方向
   keydownHandler(event: KeyboardEvent) {
     // 不能向反方向移动
-    if(event.key!==this.direction){
-      if(this.direction==="ArrowDown" && event.key==="ArrowUp" ||
-      this.direction==="ArrowUp" && event.key==="ArrowDown" ||
-      this.direction==="ArrowLeft" && event.key==="ArrowRight"||
-      this.direction==="ArrowRight" && event.key==="ArrowLeft"){
-        
-      }else{
+    if (event.key !== this.direction) {
+      if (this.direction === "ArrowDown" && event.key === "ArrowUp" ||
+        this.direction === "ArrowUp" && event.key === "ArrowDown" ||
+        this.direction === "ArrowLeft" && event.key === "ArrowRight" ||
+        this.direction === "ArrowRight" && event.key === "ArrowLeft") {
+
+      } else {
         this.direction = event.key
       }
     }
@@ -59,13 +59,13 @@ class GameControl {
     }
     this.eatFood(X, Y)
     try {
-      if (X!=this.snake.X||Y!=this.snake.Y){
+      if (X != this.snake.X || Y != this.snake.Y) {
         this.snake.X = X
         this.snake.Y = Y
       }
     } catch (error) {
       // console.log(error)
-      alert((error as Error).message+' GAME OVER!')
+      alert((error as Error).message + ' GAME OVER!')
       this.alive = false
     }
     this.alive && setTimeout(this.run.bind(this), 300 - (this.scorePanel.level * 30))
@@ -74,7 +74,12 @@ class GameControl {
   eatFood(x: number, y: number) {
     if (x === this.food.X && y === this.food.Y) {
       this.food.change()
-      this.scorePanel.addScore()
+      try {
+        this.scorePanel.addScore()
+      } catch (error) {
+        alert((error as Error).message)
+        this.alive = false
+      }
       this.snake.addBody()
     }
   }

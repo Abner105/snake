@@ -26,6 +26,8 @@ class ScorePanel {
   levelUp() {
     if (this.level < this.maxLevel) {
       this.levelEle.innerHTML = ++this.level + ''
+    }else{
+      throw new Error('恭喜你通关啦~~')
     }
   }
 }

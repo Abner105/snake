@@ -47,7 +47,7 @@ class Snake {
   }
   // 判断蛇是否撞到自己
   checkBody(){
-    for(let i=2;i<this.bodies.length;i++){
+    for(let i=3;i<this.bodies.length;i++){
       let X = (this.bodies[i] as HTMLElement).offsetLeft;
       let Y = (this.bodies[i] as HTMLElement).offsetTop;
       if(X===this.X&&Y===this.Y){
